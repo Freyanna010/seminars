@@ -1,1 +1,1 @@
-export { default } from "./seminarsStore"
+export { default } from "./seminarsStore";

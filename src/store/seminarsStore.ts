@@ -1,6 +1,7 @@
-import { SeminarsData } from "@/types/types";
 import axios from "axios";
 import { action, makeObservable, observable, runInAction } from "mobx";
+
+import { SeminarsData } from "@/types/types";
 
 class SeminarsStore {
   isLoading = false;

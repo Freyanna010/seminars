@@ -5,5 +5,5 @@ import App from "./component/App/App.tsx";
 
 
 createRoot(document.getElementById("root")!).render( 
-    <App />
+  <App />
 );
