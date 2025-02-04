@@ -38,4 +38,6 @@ const CardList: FC = () => {
     </>
   );
 };
-export default observer(CardList);
+
+const ObservedCardList = observer(CardList);
+export { ObservedCardList as CardList };
