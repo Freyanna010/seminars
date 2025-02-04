@@ -28,7 +28,7 @@ class SeminarsStore {
       });
     } catch (error) {
       runInAction(() => {
-        this.errorMessage = "Ошибка загрузки данных";
+        this.errorMessage = `Ошибка загрузки данных: ${error}`;
       });
     } finally {
       runInAction(() => {
