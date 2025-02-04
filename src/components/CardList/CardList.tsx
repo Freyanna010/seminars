@@ -1,11 +1,12 @@
 import { FC, useEffect } from "react";
-
-import classes from "./CardList.module.scss";
-import seminarsStore from "@/store";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Card, Image, Spin } from "antd";
 import Title from "antd/es/typography/Title";
 import { observer } from "mobx-react-lite";
+
+import classes from "./CardList.module.scss";
+
+import seminarsStore from "@/store";
 
 const CardList: FC = () => {
   const { isLoading, errorMessage, seminarsData, fetchSeminarsData } =
