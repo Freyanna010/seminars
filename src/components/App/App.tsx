@@ -1,7 +1,5 @@
 import { FC, } from "react";
-
-import CardList from "../CardList";
-
+import { CardList } from "../CardList";
 
 const App: FC = () => (
   <div>

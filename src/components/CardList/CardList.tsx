@@ -1,6 +1,6 @@
 import { FC, useEffect } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
-import { Card, Image, Spin } from "antd";
+import { Card, Col, Image, Row, Spin } from "antd";
 import Title from "antd/es/typography/Title";
 import { observer } from "mobx-react-lite";
 
@@ -24,17 +24,21 @@ const CardList: FC = () => {
 
   return (
     <>
+       <Row gutter={[16, 16]} justify= "start"> 
       {seminarsData.map(({ id, title, date, time, description, photo }) => (
-        <Card key={id}>
-          <Title>{title}</Title>
-          <div>
-            <Title>{date}</Title>
-            <Title>{time}</Title>
-          </div>
-          <Image src={photo} />
-          <Title>{description}</Title>
-        </Card>
+        <Col key={id} xs={24} sm={12} lg={12}> 
+          <Card>
+            <Title>{title}</Title>
+            <div>
+              <Title>{date}</Title>
+              <Title>{time}</Title>
+            </div>
+            <Image src={photo} />
+            <Title>{description}</Title>
+          </Card>
+        </Col>
       ))}
+    </Row>
     </>
   );
 };
