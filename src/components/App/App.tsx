@@ -2,19 +2,15 @@ import { FC, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 
 import seminarsStore from "@/store/seminarsStore";
-
+import CardList from "../CardList";
 
 const App: FC = () => {
- 
-  useEffect ( () => {
-    seminarsStore.fetchSeminarsData();
-  } ,[]);
-
   return (
     <div>
-      {seminarsStore.seminarsData.map(seminar => seminar.id)}
+      <h1>Семинары:</h1>
+      <CardList />
     </div>
   );
 };
 
-export default observer(App);
+export default App;
