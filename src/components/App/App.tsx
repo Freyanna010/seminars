@@ -1,9 +1,7 @@
-import { FC, useEffect } from "react";
-import { observer } from "mobx-react-lite";
+import { FC, } from "react";
 
 import CardList from "../CardList";
 
-import seminarsStore from "@/store/seminarsStore";
 
 const App: FC = () => (
   <div>

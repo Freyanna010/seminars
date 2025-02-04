@@ -4,8 +4,6 @@ import { Card, Image, Spin } from "antd";
 import Title from "antd/es/typography/Title";
 import { observer } from "mobx-react-lite";
 
-import classes from "./CardList.module.scss";
-
 import seminarsStore from "@/store";
 
 const CardList: FC = () => {
@@ -14,7 +12,7 @@ const CardList: FC = () => {
 
   useEffect(() => {
     fetchSeminarsData();
-  }, []);
+  }, [fetchSeminarsData]);
 
   if (isLoading) {
     return <Spin indicator={<LoadingOutlined spin />} size="large" />;
