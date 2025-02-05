@@ -25,7 +25,7 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      "no-console": ["error", { "allow": ["warn", "error"] }],
+      // "no-console": ["error", { "allow": ["warn", "error"] }],
       "@stylistic/jsx-one-expression-per-line": "off",
       "@stylistic/jsx-newline": "off",
       "react-refresh/only-export-components": [

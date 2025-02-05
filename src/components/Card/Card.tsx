@@ -1,22 +1,22 @@
 import { FC } from "react";
 import {
+  DeleteOutlined,
+  EditOutlined,
+  QuestionCircleOutlined,
+} from "@ant-design/icons";
+import {
   Card as AntdCard,
   Button,
   Flex,
   Image,
   Popconfirm,
-  Space,
   Tooltip,
 } from "antd";
 import Title from "antd/es/typography/Title";
 
 import { CardProps } from "./types";
 import classes from "./Card.module.scss";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  QuestionCircleOutlined,
-} from "@ant-design/icons";
+
 import noimage from "@/assets/noimage.jpg";
 
 const Card: FC<CardProps> = (props) => {
@@ -25,39 +25,39 @@ const Card: FC<CardProps> = (props) => {
     <AntdCard className={classes.card}>
       <Flex align="stretch" justify="space-between">
         <Title level={2}>{title}</Title>
-        <Flex align="center" justify="and" gap={4}>
+        <Flex align="center" gap={4} justify="and">
           <Tooltip title="Редактировать">
             <Button
-              type="text"
-              icon={<EditOutlined />}
               className={classes.buttonCard}
+              icon={<EditOutlined />}
+              type="text"
             />
           </Tooltip>
 
           <Tooltip title="Удалить">
             <Popconfirm
-              title="Вы хотите удалить семинар?"
-              okText="Да"
-              cancelText="Отмена"
-              okButtonProps={{ className: classes.okButton }}
               cancelButtonProps={{ className: classes.cancelButton }}
+              cancelText="Отмена"
               icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+              okButtonProps={{ className: classes.okButton }}
+              okText="Да"
               onConfirm={() => console.log("удалено")}
+              title="Вы хотите удалить семинар?"
             >
-              <Button type="text" icon={<DeleteOutlined />} />
+              <Button icon={<DeleteOutlined />} type="text" />
             </Popconfirm>
           </Tooltip>
         </Flex>
       </Flex>
 
-      <Flex justify="space-between" align="end">
+      <Flex align="end" justify="space-between">
         <Title level={5}>{time} </Title>
-        <Title level={5} className={classes.titleCard}>
+        <Title className={classes.titleCard} level={5}>
           {date}
         </Title>
       </Flex>
 
-      <Image className={classes.image} src={photo} fallback={noimage} />
+      <Image className={classes.image} fallback={noimage} src={photo} />
 
       <Title level={4}>{description}</Title>
     </AntdCard>
