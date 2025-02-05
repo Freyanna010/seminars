@@ -1,9 +1,10 @@
 import { FC } from "react";
-import classes from "./App.module.scss";
+import Layout, { Content, Header } from "antd/es/layout/layout";
 
 import { CardList } from "../CardList";
+import classes from "./App.module.scss";
 
-import Layout, { Content, Header } from "antd/es/layout/layout";
+
 
 const App: FC = () => (
   <Layout className={classes.layout}>

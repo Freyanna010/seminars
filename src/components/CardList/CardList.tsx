@@ -2,10 +2,11 @@ import { FC, useEffect } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Col, Row, Spin } from "antd";
 import { observer } from "mobx-react-lite";
-import classes from "./CardList.module.scss"
+
+import Card from "../Card/Card";
+import classes from "./CardList.module.scss";
 
 import seminarsStore from "@/store";
-import Card from "../Card/Card";
 
 const CardList: FC = () => {
   const { isLoading, errorMessage, seminarsData, fetchSeminarsData } =
@@ -28,13 +29,13 @@ const CardList: FC = () => {
       {seminarsData.map(({ id, title, date, time, description, photo }) => (
         <Col lg={8} sm={12} xs={24}>
           <Card
-            key={id}
-            id={id}
-            title={title}
             date={date}
-            time={time}
             description={description}
+            id={id}
+            key={id}
             photo={photo}
+            time={time}
+            title={title}
           />
         </Col>
       ))}
