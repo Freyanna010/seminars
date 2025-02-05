@@ -27,11 +27,11 @@ const CardList: FC = () => {
   return (
     <Row gutter={[12, 12]} justify="start" >
       {seminarsData.map(({ id, title, date, time, description, photo }) => (
-        <Col lg={8} sm={12} xs={24} key={id}>
+        <Col key={id} lg={8} sm={12} xs={24}>
           <Card
             date={date}
             description={description}
-            id={id}         
+            id={id}
             photo={photo}
             time={time}
             title={title}
