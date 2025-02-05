@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Col, Row, Spin } from "antd";
 import { observer } from "mobx-react-lite";
@@ -16,6 +16,7 @@ const CardList: FC = () => {
     fetchSeminarsData();
   }, [fetchSeminarsData]);
 
+
   if (isLoading) {
     return <Spin className={classes.spin} indicator={<LoadingOutlined spin />} size="large" />;
   }
@@ -32,10 +33,10 @@ const CardList: FC = () => {
             date={date}
             description={description}
             id={id}
+            onDelete={() => deleteSeminar(id)}
             photo={photo}
             time={time}
             title={title}
-            onDelete={() => deleteSeminar(id)}
           />
         </Col>
       ))}

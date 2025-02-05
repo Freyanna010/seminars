@@ -20,12 +20,21 @@
 }
 
   .okButton {
-    background-color: #b6e6d9 !important;    
-    color: rgb(7, 7, 7) !important;
+    background-color: #b6e6d9;
+    color: rgb(7, 7, 7);
+
+    &:hover{
+      background-color: #95bbb1 !important;
   }
-  
+  }
+
   .cancelButton {
-    background-color: rgb(255, 255, 255) !important;
-    border-color:rgb(59, 59, 59) !important;
-    color: rgb(59, 59, 59) !important;
+    background-color: rgb(255, 255, 255);
+    border-color:rgb(59, 59, 59);
+    color: rgb(59, 59, 59) ;
+
+    &:hover{
+      border-color: #95bbb1 !important;
+      color: #95bbb1 !important
+  }
   }
