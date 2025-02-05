@@ -20,7 +20,7 @@ import classes from "./Card.module.scss";
 import noimage from "@/assets/noimage.jpg";
 
 const Card: FC<CardProps> = (props) => {
-  const { title, date, time, photo, description } = props;
+  const { id,title, date, time, photo, description, onDelete} = props;
   return (
     <AntdCard className={classes.card}>
       <Flex align="stretch" justify="space-between">
@@ -41,7 +41,7 @@ const Card: FC<CardProps> = (props) => {
               icon={<QuestionCircleOutlined style={{ color: "red" }} />}
               okButtonProps={{ className: classes.okButton }}
               okText="Да"
-              onConfirm={() => console.log("удалено")}
+              onConfirm={() => onDelete(id)}
               title="Вы хотите удалить семинар?"
             >
               <Button icon={<DeleteOutlined />} type="text" />

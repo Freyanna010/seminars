@@ -9,7 +9,7 @@ import classes from "./CardList.module.scss";
 import seminarsStore from "@/store";
 
 const CardList: FC = () => {
-  const { isLoading, errorMessage, seminarsData, fetchSeminarsData } =
+  const { isLoading, errorMessage, seminarsData, fetchSeminarsData, deleteSeminar } =
     seminarsStore;
 
   useEffect(() => {
@@ -35,6 +35,7 @@ const CardList: FC = () => {
             photo={photo}
             time={time}
             title={title}
+            onDelete={() => deleteSeminar(id)}
           />
         </Col>
       ))}
