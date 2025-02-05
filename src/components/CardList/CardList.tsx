@@ -1,10 +1,11 @@
 import { FC, useEffect } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
-import { Card, Col, Image, Row, Spin } from "antd";
-import Title from "antd/es/typography/Title";
+import { Col, Row, Spin } from "antd";
 import { observer } from "mobx-react-lite";
+import classes from "./CardList.module.scss"
 
 import seminarsStore from "@/store";
+import Card from "../Card/Card";
 
 const CardList: FC = () => {
   const { isLoading, errorMessage, seminarsData, fetchSeminarsData } =
@@ -15,7 +16,7 @@ const CardList: FC = () => {
   }, [fetchSeminarsData]);
 
   if (isLoading) {
-    return <Spin indicator={<LoadingOutlined spin />} size="large" />;
+    return <Spin className={classes.spin} indicator={<LoadingOutlined spin />} size="large" />;
   }
 
   if (errorMessage) {
@@ -23,23 +24,21 @@ const CardList: FC = () => {
   }
 
   return (
-    <>
-       <Row gutter={[16, 16]} justify= "start"> 
+    <Row gutter={[12, 12]} justify="start" >
       {seminarsData.map(({ id, title, date, time, description, photo }) => (
-        <Col key={id} xs={24} sm={12} lg={12}> 
-          <Card>
-            <Title>{title}</Title>
-            <div>
-              <Title>{date}</Title>
-              <Title>{time}</Title>
-            </div>
-            <Image src={photo} />
-            <Title>{description}</Title>
-          </Card>
+        <Col lg={8} sm={12} xs={24}>
+          <Card
+            key={id}
+            id={id}
+            title={title}
+            date={date}
+            time={time}
+            description={description}
+            photo={photo}
+          />
         </Col>
       ))}
     </Row>
-    </>
   );
 };
 
