@@ -1,0 +1,39 @@
+.card {
+  width: 730px;
+  height: 900px;
+  border-radius: 7px;
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 7px 7px 8px 0px rgba(34, 60, 80, 0.2);
+  }
+}
+
+.imageCard {
+  width: 100%;
+  border-radius: 7px;
+}
+
+.titleCard {
+  margin: 0;
+}
+
+.okButton {
+  background-color: #b6e6d9;
+  color: rgb(7, 7, 7);
+
+  &:hover {
+    background-color: #95bbb1 !important;
+  }
+}
+
+.cancelButton {
+  background-color: rgb(255, 255, 255);
+  border-color: rgb(59, 59, 59);
+  color: rgb(59, 59, 59);
+
+  &:hover {
+    border-color: #95bbb1 !important;
+    color: #95bbb1 !important;
+  }
+}

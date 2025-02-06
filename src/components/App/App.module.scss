@@ -1,0 +1,23 @@
+body,
+html {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.layout {
+  width: 100%;
+  background-color: #c9fff1;
+  margin: 0 auto;
+}
+
+.content {
+  padding: 36px 150px 102px 150px;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  color: #c9fff1;
+}
