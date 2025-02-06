@@ -15,7 +15,7 @@ const Image = (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
 
   return (
     <>
-      {!isLoad && <Skeleton.Node active style={{ width: 680, height: 730}} />}
+      {!isLoad && <Skeleton.Node active style={{ width: 680, height: 730 }} />}
       <img
         {...imgProps}
         alt="Loading..."

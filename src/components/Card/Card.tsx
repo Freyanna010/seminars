@@ -2,27 +2,29 @@ import { FC, useState } from "react";
 import {
   DeleteOutlined,
   EditOutlined,
-  PlusOutlined,
   QuestionCircleOutlined,
 } from "@ant-design/icons";
 import {
   Card as AntdCard,
   Button,
+  DatePicker,
   Flex,
   Form,
   Input,
   Modal,
   Popconfirm,
+  TimePicker,
   Tooltip,
-  Upload,
 } from "antd";
 import Title from "antd/es/typography/Title";
 
 import { CardProps } from "./Card.types";
+import Image from "../ui/Image";
 import classes from "./Card.module.scss";
 
 import noimage from "@/assets/noimage.jpg";
-import Image from "../ui/Image";
+import dayjs from "dayjs";
+import { DATE_FORMAT, TIME_FORMAT } from "@/constants";
 
 const Card: FC<CardProps> = (props) => {
   const { id, title, date, time, photo, description, onDelete, onEdit } = props;
@@ -32,7 +34,13 @@ const Card: FC<CardProps> = (props) => {
 
   const showModal = () => {
     setIsModalOpen(true);
-    form.setFieldsValue({ title, date, time, photo, description });
+    form.setFieldsValue({
+      title,
+      date: dayjs(date, DATE_FORMAT),
+      time: dayjs(time, TIME_FORMAT),
+      photo,
+      description,
+    });
   };
   const handleDeleteSeminar = () => {
     onDelete(id);
@@ -43,18 +51,16 @@ const Card: FC<CardProps> = (props) => {
   const handleSaveEdit = async () => {
     try {
       const values = await form.validateFields();
-      await onEdit(values);
+      const formattedValues = {
+        ...values,
+        date: values.date.format(DATE_FORMAT),
+        time: values.time.format(TIME_FORMAT),
+      };
+      await onEdit(formattedValues);
       setIsModalOpen(false);
     } catch (errorInfo) {
       console.log("Validation Failed:", errorInfo);
     }
-  };
-
-  const normFile = (e: any) => {
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e?.fileList;
   };
 
   return (
@@ -95,7 +101,7 @@ const Card: FC<CardProps> = (props) => {
           </Title>
         </Flex>
 
-        <Image className={classes.imageCard} alt={noimage} src={photo} />
+        <Image alt={noimage} className={classes.imageCard} src={photo} />
 
         <Title level={4}>{description}</Title>
       </AntdCard>
@@ -103,16 +109,16 @@ const Card: FC<CardProps> = (props) => {
       <Modal
         cancelButtonProps={{ className: classes.cancelButton }}
         cancelText="Отменить"
+        onCancel={handleCancelModal}
         okButtonProps={{ className: classes.okButton }}
         okText="Сохранить"
-        onCancel={handleCancelModal}
         onOk={() => handleSaveEdit()}
         open={isModalOpen}
         title="Редактировать семинар"
       >
         <Form form={form} layout="vertical">
           <Form.Item
-            label="Название"
+            label="Название семинара"
             name="title"
             rules={[
               { required: true, message: "Пожалуйста, введите название" },
@@ -121,20 +127,20 @@ const Card: FC<CardProps> = (props) => {
             <Input />
           </Form.Item>
           <Form.Item
-            label="Дата"
+            label="Дата проведения"
             name="date"
             rules={[{ required: true, message: "Введите дату" }]}
           >
-            <Input />
+            <DatePicker format="DD.MM.YY" />
           </Form.Item>
+
           <Form.Item
-            label="Время"
+            label="Время проведения"
             name="time"
             rules={[{ required: true, message: "Введите время" }]}
           >
-            <Input />
+            <TimePicker format="HH:mm" />
           </Form.Item>
-
           <Form.Item label="Ссылка на фото" name="photo">
             <Input />
           </Form.Item>
