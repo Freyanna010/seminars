@@ -1,7 +1,7 @@
 import axios from "axios";
 import { action, makeObservable, observable, runInAction } from "mobx";
 
-import { SeminarsData } from "@/types/types";
+import { Seminar, SeminarsData } from "@/types/types";
 
 class SeminarsStore {
   isLoading = false;
@@ -15,6 +15,7 @@ class SeminarsStore {
       seminarsData: observable,
       fetchSeminarsData: action,
       deleteSeminar: action,
+      editSeminar: action,
     });
   }
 
@@ -48,6 +49,23 @@ class SeminarsStore {
     } catch (error) {
       runInAction(() => {
         this.errorMessage = `Не получилось удалить. Ошибка сервера: ${error}`;
+      });
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  };
+
+  editSeminar = async (id: number, updatedValues: Partial<Seminar>) => {
+    this.isLoading = true;
+    this.errorMessage = null;
+    try {
+      await axios.patch(`http://localhost:5000/seminars/${id}`, updatedValues);
+      this.fetchSeminarsData();
+    } catch (error) {
+      runInAction(() => {
+        this.errorMessage = `Ошибка при сохранении данных: ${error}`;
       });
     } finally {
       runInAction(() => {

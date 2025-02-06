@@ -17,24 +17,35 @@ import {
 } from "antd";
 import Title from "antd/es/typography/Title";
 
-import { CardProps } from "./types";
+import { CardProps } from "./Card.types";
 import classes from "./Card.module.scss";
 
 import noimage from "@/assets/noimage.jpg";
 
 const Card: FC<CardProps> = (props) => {
-  const { id, title, date, time, photo, description, onDelete } = props;
+  const { id, title, date, time, photo, description, onDelete, onEdit } = props;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
 
   const showModal = () => {
-    form.setFieldsValue({ title, date, time, photo, description });
     setIsModalOpen(true);
+    form.setFieldsValue({ title, date, time, photo, description });
   };
-
+  const handleDelete = () => {
+    onDelete(id);
+  };
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+  const handleSave = async () => {
+    try {
+      const values = await form.validateFields();
+      await onEdit(values);
+      setIsModalOpen(false);
+    } catch (errorInfo) {
+      console.log("Validation Failed:", errorInfo);
+    }
   };
 
   return (
@@ -47,8 +58,8 @@ const Card: FC<CardProps> = (props) => {
               <Button
                 className={classes.buttonCard}
                 icon={<EditOutlined />}
-                type="text"
                 onClick={() => showModal()}
+                type="text"
               />
             </Tooltip>
 
@@ -59,7 +70,7 @@ const Card: FC<CardProps> = (props) => {
                 icon={<QuestionCircleOutlined style={{ color: "red" }} />}
                 okButtonProps={{ className: classes.okButton }}
                 okText="Да"
-                onConfirm={() => onDelete(id)}
+                onConfirm={handleDelete}
                 title="Вы хотите удалить семинар?"
               >
                 <Button icon={<DeleteOutlined />} type="text" />
@@ -81,13 +92,14 @@ const Card: FC<CardProps> = (props) => {
       </AntdCard>
 
       <Modal
-        title="Редактировать семинар"
-        open={isModalOpen}
-        onCancel={handleCancel}
-        okText="Сохранить"
+        cancelButtonProps={{ className: classes.cancelButton }}
         cancelText="Отменить"
         okButtonProps={{ className: classes.okButton }}
-        cancelButtonProps={{ className: classes.cancelButton }}
+        okText="Сохранить"
+        onCancel={handleCancel}
+        open={isModalOpen}
+        title="Редактировать семинар"
+        onOk={() => handleSave()}
       >
         <Form form={form} layout="vertical">
           <Form.Item

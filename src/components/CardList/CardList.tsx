@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect} from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Col, Row, Spin } from "antd";
 import { observer } from "mobx-react-lite";
@@ -8,8 +8,9 @@ import classes from "./CardList.module.scss";
 
 import seminarsStore from "@/store";
 
+
 const CardList: FC = () => {
-  const { isLoading, errorMessage, seminarsData, fetchSeminarsData, deleteSeminar } =
+  const { isLoading, errorMessage, seminarsData, fetchSeminarsData, deleteSeminar, editSeminar} =
     seminarsStore;
 
   useEffect(() => {
@@ -34,6 +35,7 @@ const CardList: FC = () => {
             description={description}
             id={id}
             onDelete={() => deleteSeminar(id)}
+            onEdit={(values) => editSeminar(id, values)}
             photo={photo}
             time={time}
             title={title}
