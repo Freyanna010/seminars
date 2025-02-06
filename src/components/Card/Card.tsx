@@ -32,13 +32,13 @@ const Card: FC<CardProps> = (props) => {
     setIsModalOpen(true);
     form.setFieldsValue({ title, date, time, photo, description });
   };
-  const handleDelete = () => {
+  const handleDeleteSeminar = () => {
     onDelete(id);
   };
-  const handleCancel = () => {
+  const handleCancelModal = () => {
     setIsModalOpen(false);
   };
-  const handleSave = async () => {
+  const handleSaveEdit = async () => {
     try {
       const values = await form.validateFields();
       await onEdit(values);
@@ -70,7 +70,7 @@ const Card: FC<CardProps> = (props) => {
                 icon={<QuestionCircleOutlined style={{ color: "red" }} />}
                 okButtonProps={{ className: classes.okButton }}
                 okText="Да"
-                onConfirm={handleDelete}
+                onConfirm={handleDeleteSeminar}
                 title="Вы хотите удалить семинар?"
               >
                 <Button icon={<DeleteOutlined />} type="text" />
@@ -86,7 +86,7 @@ const Card: FC<CardProps> = (props) => {
           </Title>
         </Flex>
 
-        <Image className={classes.image} fallback={noimage} src={photo} />
+        <Image className={classes.imageCard} fallback={noimage} src={photo} />
 
         <Title level={4}>{description}</Title>
       </AntdCard>
@@ -96,10 +96,10 @@ const Card: FC<CardProps> = (props) => {
         cancelText="Отменить"
         okButtonProps={{ className: classes.okButton }}
         okText="Сохранить"
-        onCancel={handleCancel}
+        onCancel={handleCancelModal}
         open={isModalOpen}
         title="Редактировать семинар"
-        onOk={() => handleSave()}
+        onOk={() => handleSaveEdit()}
       >
         <Form form={form} layout="vertical">
           <Form.Item
@@ -125,6 +125,7 @@ const Card: FC<CardProps> = (props) => {
           >
             <Input />
           </Form.Item>
+          {/* TODO: поменять поле */}
           <Form.Item
             label="Ссылка на фото"
             name="photo"

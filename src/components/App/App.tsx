@@ -4,8 +4,6 @@ import Layout, { Content, Header } from "antd/es/layout/layout";
 import { CardList } from "../CardList";
 import classes from "./App.module.scss";
 
-
-
 const App: FC = () => (
   <Layout className={classes.layout}>
     <Header className={classes.header}>
