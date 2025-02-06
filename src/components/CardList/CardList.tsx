@@ -19,14 +19,17 @@ const CardList: FC = () => {
     editSeminar,
   } = seminarsStore;
 
+  // загрузка данных 
   useEffect(() => {
     fetchSeminarsData();
   }, [fetchSeminarsData]);
 
+  // вызываю метод удаления данных
   const handleDeleteSeminar = (id: number) => {
     deleteSeminar(id);
   };
 
+  // метод изменения семинара
   const handleSaveEdit = (id: number, values: Partial<Seminar>) => {
     editSeminar(id, values);
   };

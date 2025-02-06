@@ -29,37 +29,47 @@ import { DATE_FORMAT, TIME_FORMAT } from "@/constants";
 const Card: FC<CardProps> = (props) => {
   const { id, title, date, time, photo, description, onDelete, onEdit } = props;
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); 
   const [form] = Form.useForm();
 
+  //TODO: вызываю модальное окно при клике
   const showModal = () => {
     setIsModalOpen(true);
+    //TODO: передаю в инпуты формы начальные значения (чтобы заполнить поля)
     form.setFieldsValue({
       title,
+      //TODO: преобразую поля даты и время в нужный для Form из Antd
       date: dayjs(date, DATE_FORMAT),
       time: dayjs(time, TIME_FORMAT),
       photo,
       description,
     });
   };
+  //TODO:  ззакрыть модальное при клике
+  const handleCancelModal = () => {
+    setIsModalOpen(false);
+  };  
+   //TODO: передаю id для удаления
   const handleDeleteSeminar = () => {
     onDelete(id);
   };
-  const handleCancelModal = () => {
-    setIsModalOpen(false);
-  };
+  //TODO: передаю id  и новые згачния полей из формы для изменения семинара
   const handleSaveEdit = async () => {
     try {
+     //TODO: ассинхронный метод, который вернет Promise, содержащий данные введенные пользователем (после валидации)
       const values = await form.validateFields();
-      const formattedValues = {
+      const formattedValues = {        
         ...values,
+    //TODO: преобразую обратно в строки эти поля о
         date: values.date.format(DATE_FORMAT),
         time: values.time.format(TIME_FORMAT),
       };
       await onEdit(formattedValues);
+      //TODO: после у спешного измениния на сервере окно закроется
       setIsModalOpen(false);
+     //TODO:  если валидация  не проходит
     } catch (errorInfo) {
-      console.log("Validation Failed:", errorInfo);
+      console.log(errorInfo);
     }
   };
 
@@ -131,7 +141,7 @@ const Card: FC<CardProps> = (props) => {
             name="date"
             rules={[{ required: true, message: "Введите дату" }]}
           >
-            <DatePicker format="DD.MM.YY" />
+            <DatePicker format={DATE_FORMAT} />
           </Form.Item>
 
           <Form.Item
@@ -139,7 +149,7 @@ const Card: FC<CardProps> = (props) => {
             name="time"
             rules={[{ required: true, message: "Введите время" }]}
           >
-            <TimePicker format="HH:mm" />
+            <TimePicker format={TIME_FORMAT} />
           </Form.Item>
           <Form.Item label="Ссылка на фото" name="photo">
             <Input />

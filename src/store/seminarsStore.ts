@@ -4,7 +4,7 @@ import { action, makeObservable, observable, runInAction } from "mobx";
 import { Seminar, SeminarsData } from "@/types/types";
 
 class SeminarsStore {
-  isLoading = false;
+  isLoading= false;
   errorMessage: string | null = null;
   seminarsData: SeminarsData = [];
 
@@ -58,7 +58,7 @@ class SeminarsStore {
   };
 
   editSeminar = async (id: number, updatedValues: Partial<Seminar>) => {
-    this.isLoading = true;
+    this.isLoading= true;
     this.errorMessage = null;
     try {
       await axios.patch(`http://localhost:5000/seminars/${id}`, updatedValues);
