@@ -53,11 +53,11 @@ const CardList: FC = () => {
             date={date}
             description={description}
             id={id}
+            onDelete={() => handleDeleteSeminar(id)}
+            onEdit={(values) => handleSaveEdit(id, values)}
             photo={photo}
             time={time}
             title={title}
-            onDelete={() => handleDeleteSeminar(id)}
-            onEdit={(values) => handleSaveEdit(id, values)}
           />
         </Col>
       ))}

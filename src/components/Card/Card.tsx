@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import {
   DeleteOutlined,
   EditOutlined,
+  PlusOutlined,
   QuestionCircleOutlined,
 } from "@ant-design/icons";
 import {
@@ -9,11 +10,11 @@ import {
   Button,
   Flex,
   Form,
-  Image,
   Input,
   Modal,
   Popconfirm,
   Tooltip,
+  Upload,
 } from "antd";
 import Title from "antd/es/typography/Title";
 
@@ -21,6 +22,7 @@ import { CardProps } from "./Card.types";
 import classes from "./Card.module.scss";
 
 import noimage from "@/assets/noimage.jpg";
+import Image from "../ui/Image";
 
 const Card: FC<CardProps> = (props) => {
   const { id, title, date, time, photo, description, onDelete, onEdit } = props;
@@ -46,6 +48,13 @@ const Card: FC<CardProps> = (props) => {
     } catch (errorInfo) {
       console.log("Validation Failed:", errorInfo);
     }
+  };
+
+  const normFile = (e: any) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e?.fileList;
   };
 
   return (
@@ -86,7 +95,7 @@ const Card: FC<CardProps> = (props) => {
           </Title>
         </Flex>
 
-        <Image className={classes.imageCard} fallback={noimage} src={photo} />
+        <Image className={classes.imageCard} alt={noimage} src={photo} />
 
         <Title level={4}>{description}</Title>
       </AntdCard>
@@ -97,9 +106,9 @@ const Card: FC<CardProps> = (props) => {
         okButtonProps={{ className: classes.okButton }}
         okText="Сохранить"
         onCancel={handleCancelModal}
+        onOk={() => handleSaveEdit()}
         open={isModalOpen}
         title="Редактировать семинар"
-        onOk={() => handleSaveEdit()}
       >
         <Form form={form} layout="vertical">
           <Form.Item
@@ -125,14 +134,11 @@ const Card: FC<CardProps> = (props) => {
           >
             <Input />
           </Form.Item>
-          {/* TODO: поменять поле */}
-          <Form.Item
-            label="Ссылка на фото"
-            name="photo"
-            rules={[{ required: true, message: "Введите URL фото" }]}
-          >
+
+          <Form.Item label="Ссылка на фото" name="photo">
             <Input />
           </Form.Item>
+
           <Form.Item label="Описание" name="description">
             <Input.TextArea rows={4} />
           </Form.Item>
