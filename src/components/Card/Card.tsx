@@ -17,13 +17,13 @@ import {
   Tooltip,
 } from "antd";
 import Title from "antd/es/typography/Title";
+import dayjs from "dayjs";
 
 import { CardProps } from "./Card.types";
 import Image from "../ui/Image";
 import classes from "./Card.module.scss";
 
 import noimage from "@/assets/noimage.jpg";
-import dayjs from "dayjs";
 import { DATE_FORMAT, TIME_FORMAT } from "@/constants";
 
 const Card: FC<CardProps> = (props) => {
@@ -49,25 +49,25 @@ const Card: FC<CardProps> = (props) => {
   const handleCancelModal = () => {
     setIsModalOpen(false);
   };  
-   //TODO: передаю id для удаления
+  //TODO: передаю id для удаления
   const handleDeleteSeminar = () => {
     onDelete(id);
   };
   //TODO: передаю id  и новые згачния полей из формы для изменения семинара
   const handleSaveEdit = async () => {
     try {
-     //TODO: ассинхронный метод, который вернет Promise, содержащий данные введенные пользователем (после валидации)
+      //TODO: ассинхронный метод, который вернет Promise, содержащий данные введенные пользователем (после валидации)
       const values = await form.validateFields();
       const formattedValues = {        
         ...values,
-    //TODO: преобразую обратно в строки эти поля о
+        //TODO: преобразую обратно в строки эти поля о
         date: values.date.format(DATE_FORMAT),
         time: values.time.format(TIME_FORMAT),
       };
       await onEdit(formattedValues);
       //TODO: после у спешного измениния на сервере окно закроется
       setIsModalOpen(false);
-     //TODO:  если валидация  не проходит
+      //TODO:  если валидация  не проходит
     } catch (errorInfo) {
       console.log(errorInfo);
     }
@@ -119,9 +119,9 @@ const Card: FC<CardProps> = (props) => {
       <Modal
         cancelButtonProps={{ className: classes.cancelButton }}
         cancelText="Отменить"
-        onCancel={handleCancelModal}
         okButtonProps={{ className: classes.okButton }}
         okText="Сохранить"
+        onCancel={handleCancelModal}
         onOk={() => handleSaveEdit()}
         open={isModalOpen}
         title="Редактировать семинар"
